@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\TryingController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ComicsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +15,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/about' ,function(){
-    return view('about',["name"=>"lala","email"=>"lala@gmail.com"]);
-});
+// Route::get('/boom',[TryingController::class,'boomlan']);
+// Route::get('/g2',[TryingController::class,'g2esport']);
+// Route::get('liquid',[TryingController::class,'teamliquid']);
+// Route::get('/bds',[TryingController::class,'bdsesport']);
+// Route::get('/heroic',[TryingController::class,'heroicesport']);
+// Route::get('/',[TryingController::class,'beranda']);
+
+Route::get('/comics',[ComicsController::class,'index']);
+Route::get('/comics/create', [ComicsController::class,'create'])->name('comics.create');
+Route::post('/comics',[ComicsController::class,'store'])->name('comics.store');
+Route::post('/comics/delete/{id_comics}',[ComicsController::class,'destroy'])->name('comics.destroy');
