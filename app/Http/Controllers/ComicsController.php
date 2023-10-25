@@ -13,6 +13,18 @@ class ComicsController extends Controller{
     public function create(){
         return view('addcomic');
     }
+
+    public function update(Request $request, $id_comic,$comic_name){
+        $comics = Comics::find($id_comic);
+
+    if (!$comics) {
+        return redirect('/comics');
+    }
+    $comics->comic_name = $comic_name;
+    $comics->save();
+    return redirect('/comics');
+    }
+    
     public function store(Request $request){
         $comics= new Comics;
         $comics->comic_name=$request->comic_name;

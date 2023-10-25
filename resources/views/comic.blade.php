@@ -18,19 +18,23 @@
         <tbody>
             @foreach($data_comic as $comics)
                 <tr>
+                    <td>
+                        <form action="post" action="{{route('comics.update',$comics->id_comic)}}">@csrf
+                            <button>Update</button></form>
+                    </td>
                     <td>{{$comics->id_comic}}</td>
                     <td>{{$comics->comic_name}}</td>
                     <td>{{$comics->comic_price}}</td>
+                    <td>
+                        <form action="{{route('comics.destroy',$comics->id_comic)}}" method="post">
+                        @csrf
+                            <button  onClick="return confirm('are you sure)">Delete</button>
+                        </form>
+                    </td>
                 </tr>
             @endforeach
         </tbody>
     </table>
     <p align="right"><a href="{{route('comics.create')}}">Add Comic</a></p>
-    <td>
-        <form action="{{route('comics.destroy',$comics->id_comic)}}" method="post">
-            @csrf
-            <button  onClick="return confirm('are you sure)">Delete</button>
-        </form>
-    </td>
 </body>
 </html>

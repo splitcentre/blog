@@ -3,6 +3,8 @@
 use App\Http\Controllers\TryingController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ComicsController;
+use App\Http\Controllers\SendEmailController;
+use App\Http\Controllers\Auth\LoginRegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,3 +28,17 @@ Route::get('/comics',[ComicsController::class,'index']);
 Route::get('/comics/create', [ComicsController::class,'create'])->name('comics.create');
 Route::post('/comics',[ComicsController::class,'store'])->name('comics.store');
 Route::post('/comics/delete/{id_comics}',[ComicsController::class,'destroy'])->name('comics.destroy');
+Route::get('/comics/update', [ComicsController::class,'update'])->name('comics.update');
+
+Route::get('/send-mail', [SendEmailController::class,
+'index'])->name('kirim-email');
+Route::post('/post-email', [SendEmailController::class, 'store'])->name('post-email');
+
+Route::controller(LoginRegisterController::class)->group(function() {
+    Route::get('/register', 'register')->name('register');
+    Route::post('/store', 'store')->name('store');
+    Route::get('/login', 'login')->name('login');
+    Route::post('/authenticate', 'authenticate')->name('authenticate');
+    Route::get('/dashboard', 'dashboard')->name('dashboard');
+    Route::post('/logout', 'logout')->name('logout');
+   });
