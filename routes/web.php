@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ComicsController;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,13 +28,12 @@ Route::get('/comics',[ComicsController::class,'index']);
 Route::get('/comics/create', [ComicsController::class,'create'])->name('comics.create');
 Route::post('/comics',[ComicsController::class,'store'])->name('comics.store');
 Route::post('/comics/delete/{id_comics}',[ComicsController::class,'destroy'])->name('comics.destroy');
-<<<<<<< Updated upstream
-=======
+
 Route::get('/comics/update', [ComicsController::class,'update'])->name('comics.update');
 
-Route::get('/send-mail', [SendEmailController::class,
-'index'])->name('kirim-email');
-Route::post('/post-email', [SendEmailController::class, 'store'])->name('post-email');
+// Route::get('/send-mail', [SendEmailController::class,
+// 'index'])->name('kirim-email');
+// Route::post('/post-email', [SendEmailController::class, 'store'])->name('post-email');
 
 Route::controller(LoginRegisterController::class)->group(function() {
     Route::get('/register', 'register')->name('register');
@@ -45,4 +45,4 @@ Route::controller(LoginRegisterController::class)->group(function() {
    });
 
    Route::get('/users', [UserController::class,'index'])->name('users.index');
->>>>>>> Stashed changes
+
