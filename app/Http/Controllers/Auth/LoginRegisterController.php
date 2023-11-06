@@ -8,7 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Session\Store;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-
+use Intervention\Image\Facades\Image;
+use Storage;
 
 class LoginRegisterController extends Controller
 {
@@ -36,6 +37,11 @@ class LoginRegisterController extends Controller
             $extension = $request->file('photo')->getClientOriginalExtension();
             $filenameSimpan = $filename . '_' . time() . '.' . $extension;
             $path = $request->file('photo')->storeAs('photos', $filenameSimpan);
+
+            $thumbnailPath = 'thumbnails/' . $filenameSimpan;
+            $thumbnail = Image::make(Storage::get($path));
+            $thumbnail->fit(100, 100); // Adjust the size as needed
+            Storage::put($thumbnailPath, (string) $thumbnail->encode());
          }else{
                 dd("fail");
          }
