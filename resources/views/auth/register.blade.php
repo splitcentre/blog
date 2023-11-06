@@ -5,22 +5,23 @@
 <div class="row justify-content-center mt-5">
     <div class="col-md-8">
 
-        <div class="card">
+    <div class="card">
             <div class="card-header">Register</div>
             <div class="card-body">
                 <form action="{{ route('store') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="mb-3 row">
-                    <label for="photo" class="col-md-4 col-form-label text-md-end text-start">Photo</label>
-                    <div>
-                        <input type="file" class="form_control @error ('photo') is_invalid @enderror" id="photo" name="photo" value ="{{old('photo')}}">
-                        @if ($errors->has('photo'))
-                        <span class="text-danger">{{$errors->first('photo')}}</span>
-                        @endif
-                    </div>
+                        <label for="photo" class="col-md-4 col-form-label text-md-end text-start">Photo</label>
+                        <div>
+                            <input type="file" class="form_control @error ('photo') is_invalid @enderror" id="photo" name="photo" value="{{ old('photo') }}" onchange="previewImage(this)">
+                            @if ($errors->has('photo'))
+                                <span class="text-danger">{{ $errors->first('photo') }}</span>
+                            @endif
+                            <img id="imagePreview" src="#" alt="Image Preview" style="display: none; max-width: 100px; max-height: 100px">
+                        </div>
                         <label for="name" class="col-md-4 col-form-label text-md-end text-start">Name</label>
                         <div class="col-md-6">
-                          <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') }}">
+                            <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') }}">
                             @if ($errors->has('name'))
                                 <span class="text-danger">{{ $errors->first('name') }}</span>
                             @endif
@@ -59,5 +60,22 @@
         </div>
     </div>    
 </div>
-    
+<script>
+    function previewImage(input) {
+        var imagePreview = document.getElementById('imagePreview');
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                imagePreview.style.display = 'block';
+                imagePreview.src = e.target.result;
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        } else {
+            imagePreview.style.display = 'none';
+            imagePreview.src = '';
+        }
+    }
+</script> 
 @endsection
