@@ -14,14 +14,5 @@
             </div>
         </div>
     </div>
-    <div class="mb-3 row">
-        <label for="photo" class="col-md-4 col-form-label text-md-end text-start">Photo</label>
-        <div>
-            <input type="file" class="form_control @error ('photo') is_invalid @enderror" id="photo" name="photo" value ="{{old('photo')}}">
-            @if ($errors->has('photo'))
-            <span class="text-danger">{{$errors->first('photo')}}</span>
-            @endif
-        </div>
-    </div>
 
     @endsection

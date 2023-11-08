@@ -1,11 +1,12 @@
 <?php
 
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\TryingController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ComicsController;
 use App\Http\Controllers\Auth\LoginRegisterController;
-
+use App\Http\Controllers\GalleryController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -45,4 +46,6 @@ Route::controller(LoginRegisterController::class)->group(function() {
    });
 
    Route::get('/users', [UserController::class,'index'])->name('users.index');
+   Route::resource('gallery', GalleryController::class);
+Route::get('/create', [PostController::class,'create']);
 
