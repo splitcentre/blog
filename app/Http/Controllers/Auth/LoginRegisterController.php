@@ -8,6 +8,9 @@ use Illuminate\Http\Request;
 use Illuminate\Session\Store;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage; 
+use Illuminate\Support\Facades\File;
+use Intervention\Image\Facades\Image;
 
 
 class LoginRegisterController extends Controller
@@ -92,5 +95,73 @@ class LoginRegisterController extends Controller
         return redirect()->route('login')
         ->withSuccess("You have logged out");
     }
+
+    public function updateProfile(Request $request, $id)
+{
+    $user = User::find($id);
+
+    $request->validate([
+        'name' => 'required|string',
+        'email' => 'required|email|unique:users,email,' . $id,
+        'password' => 'nullable|string|min:6',
+        'photo' => 'image|nullable|max:1999'
+    ]);
+
+    $user->name = $request->input('name');
+    $user->email = $request->input('email');
+
+    if ($request->has('password')) {
+        $user->password = Hash::make($request->input('password'));
+    }
+
+    if ($request->hasFile('photo')) {
+        $fileName = time() . '.' . $request->file('photo')->getClientOriginalExtension();
+        $request->file('photo')->storeAs('storage/photos/', $fileName);
+        $image = Image::make($request->file('photo')->getRealPath());
+        $image->stream();
+        $image->save(public_path('storage/photos/' . $fileName));
+        $thumbnail = Image::make($request->file('photo')->getRealPath());
+        $thumbnail->resize(150, 100); 
+        $thumbnailFileName = time() . '_thumbnail.' . $request->file('photo')->getClientOriginalExtension();
+        $thumbnail->save(public_path('storage/photos/' . $thumbnailFileName));
+        $square = Image::make($request->file('photo')->getRealPath());
+        $square->fit(150, 150);
+        $squareFileName = time() . '_square.' . $request->file('photo')->getClientOriginalExtension();
+        $square->save(public_path('storage/photos/' . $squareFileName));
+
+        $user->photo = $fileName;
+        $user->thumbnail = $thumbnail->basename;
+        $user->square = $square->basename;
+    }
+
+    $user->save();
+
+    return redirect()->route('dashboard')->withSuccess("Profil berhasil diperbarui");
+}
+
+public function deletePhotos($id)
+{
+    $user = User::find($id);
+
+    if ($user->photo) {
+
+        Storage::delete('storage/photos/' . $user->photo);
+        $user->photo = null;
+    }
+
+    if ($user->thumbnail) {
+        Storage::delete('storage/photos/' . $user->thumbnail);
+        $user->thumbnail = null;
+    }
+
+    if ($user->square) {
+        Storage::delete('storage/photos/' . $user->square);
+        $user->square = null;
+    }
+
+    $user->save();
+
+    return redirect()->back()->with('success', 'Gambar berhasil dihapus.');
+}
 
 }

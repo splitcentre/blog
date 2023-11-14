@@ -25,12 +25,12 @@ use App\Http\Controllers\GalleryController;
 // Route::get('/heroic',[TryingController::class,'heroicesport']);
 // Route::get('/',[TryingController::class,'beranda']);
 
-Route::get('/comics',[ComicsController::class,'index']);
-Route::get('/comics/create', [ComicsController::class,'create'])->name('comics.create');
-Route::post('/comics',[ComicsController::class,'store'])->name('comics.store');
-Route::post('/comics/delete/{id_comics}',[ComicsController::class,'destroy'])->name('comics.destroy');
+// Route::get('/comics',[ComicsController::class,'index']);
+// Route::get('/comics/create', [ComicsController::class,'create'])->name('comics.create');
+// Route::post('/comics',[ComicsController::class,'store'])->name('comics.store');
+// Route::post('/comics/delete/{id_comics}',[ComicsController::class,'destroy'])->name('comics.destroy');
 
-Route::get('/comics/update', [ComicsController::class,'update'])->name('comics.update');
+// Route::get('/comics/update', [ComicsController::class,'update'])->name('comics.update');
 
 // Route::get('/send-mail', [SendEmailController::class,
 // 'index'])->name('kirim-email');
@@ -43,9 +43,12 @@ Route::controller(LoginRegisterController::class)->group(function() {
     Route::post('/authenticate', 'authenticate')->name('authenticate');
     Route::get('/dashboard', 'dashboard')->name('dashboard');
     Route::post('/logout', 'logout')->name('logout');
+    Route::put('/update-profile/{id}', 'updateProfile')->name('update-profile');
+    Route::get('/edit-profile/{id}', 'editProfile')->name('edit-profile');
+    Route::delete('/delete-photos/{id}', 'deletePhotos')->name('delete-photos');
    });
 
    Route::get('/users', [UserController::class,'index'])->name('users.index');
    Route::resource('gallery', GalleryController::class);
-Route::get('/create', [PostController::class,'create']);
 
+Route::get('/create', [PostController::class,'create']);
