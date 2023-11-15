@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 class InfoController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      */
@@ -45,4 +46,6 @@ class InfoController extends Controller
     {
         //
     }
+
+    
 }
