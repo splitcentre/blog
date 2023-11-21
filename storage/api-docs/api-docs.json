@@ -54,8 +54,8 @@
                 "tags": [
                     "gallery"
                 ],
-                "summary": "Returns a list of gallery items",
-                "description": "Get a list of gallery items with images",
+                "summary": "Returns gallery details",
+                "description": "Get details of the gallery including id, title, picture, created_at, and updated_at",
                 "operationId": "getGallery",
                 "parameters": [
                     {
@@ -82,27 +82,24 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "properties": {
-                                            "id": {
-                                                "type": "integer"
-                                            },
-                                            "title": {
-                                                "type": "string"
-                                            },
-                                            "picture": {
-                                                "type": "string"
-                                            },
-                                            "created_at": {
-                                                "type": "string"
-                                            },
-                                            "updated_at": {
-                                                "type": "string"
-                                            }
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer"
                                         },
-                                        "type": "object"
-                                    }
+                                        "title": {
+                                            "type": "string"
+                                        },
+                                        "picture": {
+                                            "type": "string"
+                                        },
+                                        "created_at": {
+                                            "type": "string"
+                                        },
+                                        "updated_at": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
