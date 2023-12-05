@@ -42,13 +42,13 @@
                         </li>
                         <li class="nav-item">
                         <a class="nav-link {{ (request()->is('gallery')) ? 'active' : '' }}" href="{{
-                        route('gallery.index') }}">Gallery</a>
+                        route('gallery.index') }}"timeout="60000">Gallery</a>
                         </li>
                         </ul>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {{ (request()->is('gallery')) ? 'active' : '' }}" href="{{
-                        route('gallery.index') }}">Gallery</a>
+                        route('gallery.index') }}"timeout="60000">Gallery</a>
                     </li>
                 @endguest
             </ul>
